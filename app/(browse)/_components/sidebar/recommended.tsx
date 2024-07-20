@@ -3,9 +3,16 @@ import { useSidebar } from "@/store/use-sidebar";
 import { Stream, User } from "@prisma/client"
 import { UserItem, UserItemSkeleton } from "./user-item";
 
+
+
+type UserWithStream = User & {
+  stream?: Stream; 
+};
 interface RecommendedProps {
-    data: (User & {isLive:boolean | null})[];
+  data: (UserWithStream & {isLive:boolean | null})[];
 }
+
+
 function Recommended({data}:RecommendedProps) {
     const {collapsed} = useSidebar((state)=>state)
 
