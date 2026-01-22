@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { SignInButton, UserButton, currentUser } from "@clerk/nextjs";
+import { SignInButton, UserButton } from "@clerk/nextjs";
+import { currentUser } from '@clerk/nextjs/server';
 import Link from "next/link"
 import {Clapperboard} from "lucide-react"
 
