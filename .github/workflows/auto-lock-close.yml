@@ -1,0 +1,48 @@
+name: Auto lock & close inactive issues and PRs
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # runs daily at midnight UTC
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  inactive-handler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          # ---- Inactivity rules ----
+          days-before-issue-stale: 7
+          days-before-pr-stale: 7
+
+          # Lock immediately when stale
+          days-before-issue-close: 7
+          days-before-pr-close: 7
+
+          lock-issue: true
+          lock-pr: true
+          lock-reason: resolved
+
+          # ---- Custom messages  ----
+          stale-issue-message: >
+            This issue in **video-steam-nextjs** has been automatically locked due to
+            no activity for 1 week.
+            If you are still facing this problem, please open a new issue
+            with clear steps to reproduce.
+
+          stale-pr-message: >
+            This pull request in **video-steam-nextjs** has been automatically locked
+            due to inactivity for 1 week.
+
+          close-issue-message: >
+            Closing this issue in **video-steam-nextjs** due to prolonged inactivity.
+
+          close-pr-message: >
+            Closing this pull request in **video-steam-nextjs** due to prolonged inactivity.
+
+          # ---- Safety ----
+          exempt-issue-labels: "pinned,security,do-not-close"
+          exempt-pr-labels: "pinned,do-not-close"
